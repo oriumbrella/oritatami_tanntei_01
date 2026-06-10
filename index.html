@@ -158,14 +158,15 @@ button:disabled {
 
 .xPostBtn {
   display: none;
-  margin-top: 22px;
+  margin: 26px auto 0 auto;
   background: #000;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 10px 18px;
+  padding: 10px 22px;
   font-size: 14px;
   cursor: pointer;
+  animation: xButtonIn 0.6s ease;
 }
 
 .xPostBtn:hover {
@@ -184,8 +185,19 @@ button:disabled {
   background: rgba(0,0,0,0.45);
   z-index: 999;
 }
-  
+
 @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes xButtonIn {
   from {
     opacity: 0;
     transform: translateY(12px);
@@ -221,7 +233,7 @@ button:disabled {
   }
 
   .xPostBtn {
-    width: 100%;
+    width: auto;
   }
 }
 </style>
@@ -391,11 +403,7 @@ function openReply() {
   reply.style.display = "block";
   replyText.innerHTML = "";
 
-  if (canPostToX) {
-    xPostButton.style.display = "block";
-  } else {
-    xPostButton.style.display = "none";
-  }
+  xPostButton.style.display = "none";
 
   let i = 0;
 
@@ -409,6 +417,12 @@ function openReply() {
 
     if (i > replyMessage.length) {
       clearInterval(typingTimer);
+
+      if (canPostToX) {
+        setTimeout(() => {
+          xPostButton.style.display = "block";
+        }, 400);
+      }
     }
   }, 25);
 }
@@ -419,9 +433,11 @@ function closeReply() {
   document.getElementById("notification").style.display = "none";
 
   const mailBox = document.getElementById("mailBox");
+  const xPostButton = document.getElementById("xPostButton");
 
   mailBox.classList.remove("sending");
   sendButton.textContent = "送信";
+  xPostButton.style.display = "none";
 
   checkInput();
 
