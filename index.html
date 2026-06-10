@@ -325,12 +325,12 @@ const isHint = hintWords.some(word =>
     status.style.display = "none";
     notification.style.display = "block";
     
-else if (correct)  {
-  replyMessage =
-    "ふむ…その駅名は東京にはないな。<br><br>" +
-    "部屋に大量にある「鏡」これをうまく使えないだろうか。<br><br>" +
-    "鏡文字の他に、文字を変換できそうな…なにか…<br><br>" +
-    "―― N.F";
+    else if (correct)  {
+      replyMessage =
+        "ふむ…その駅名は東京にはないな。<br><br>" +
+        "部屋に大量にある「鏡」これをうまく使えないだろうか。<br><br>" +
+        "鏡文字の他に、文字を変換できそうな…なにか…<br><br>" +
+        "―― N.F";
 
 }
     if (correct) {
@@ -340,7 +340,8 @@ else if (correct)  {
         "君は優秀な助手だ。<br><br>" +
         "次回も頼むぞ。<br><br>" +
         "―― N.F";
-    } else {
+    } 
+    else {
       replyMessage =
         "春野鏡子失踪事件についての報告を受領した。<br><br>" +
         "ふむ…、それでは条件と一致しないようだ。<br><br>" +
