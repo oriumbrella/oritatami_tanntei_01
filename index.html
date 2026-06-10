@@ -133,6 +133,35 @@ button:disabled {
   line-height: 1.6;
 }
 
+.closeBtn{
+  float:right;
+  background:none;
+  border:none;
+  color:#666;
+  font-size:24px;
+  cursor:pointer;
+  padding:0;
+  width:auto;
+}
+
+.closeBtn:hover{
+  color:#000;
+}
+
+.overlay{
+  display:none;
+
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  background:rgba(0,0,0,0.45);
+
+  z-index:999;
+}
   
 @keyframes fadeIn {
   from {
@@ -198,14 +227,20 @@ button:disabled {
     📩 新着メール 1件<br>
     <strong>From: N.F@koreha.fiction.da</strong>
   </div>
+  
+<div id="reply" class="reply">
 
-  <div id="reply" class="reply">
-    <div class="reply-title">
-      From: N.F@koreha.fiction.da<br>
-      Subject: RE: 「春野鏡子失踪事件」報告メール
-    </div>
-    <div id="replyText"></div>
+<div id="overlay" class="overlay" onclick="closeReply()"></div>
+    ×
+  </button>
+
+  <div class="reply-title">
+    From: N.F@koreha.fiction.da<br>
+    Subject: RE: 「春野鏡子失踪事件」報告メール
   </div>
+
+  <div id="replyText"></div>
+
 
 </div>
 
@@ -284,6 +319,7 @@ function openReply() {
   const replyText = document.getElementById("replyText");
 
   notification.style.display = "none";
+  document.getElementById("overlay").style.display = "block";
   reply.style.display = "block";
   replyText.innerHTML = "";
 
@@ -297,6 +333,11 @@ function openReply() {
       clearInterval(typing);
     }
   }, 25);
+}
+function closeReply() {
+  document.getElementById("reply").style.display = "none";
+  document.getElementById("overlay").style.display = "none";
+
 }
 </script>
 
