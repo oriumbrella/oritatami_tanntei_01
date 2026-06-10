@@ -286,10 +286,10 @@ function sendMail() {
     "mitaeki"
   ];
 
-  const hintWords = [
+const hintWords = [
   "ヒント",
   "かたえき",
-  "KATAEKI"
+  "KATAEKI",
   "かた駅",
 ];
 
@@ -325,8 +325,7 @@ const isHint = hintWords.some(word =>
     status.style.display = "none";
     notification.style.display = "block";
     
-if (isHint) {
-
+else if (correct)  {
   replyMessage =
     "ふむ…その駅名は東京にはないな。<br><br>" +
     "部屋に大量にある「鏡」これをうまく使えないだろうか。<br><br>" +
