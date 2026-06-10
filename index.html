@@ -15,7 +15,14 @@
 function checkAnswer() {
     const input = document.getElementById("answer").value.trim();
 
-    if (input === "みたえき") {
+    const answers = [
+        "みたえき",
+        "三田駅",
+        "MITAEKI",
+        "mitaeki"
+    ];
+
+    if (answers.includes(input)) {
         document.getElementById("result").textContent = "正解！";
     } else {
         document.getElementById("result").textContent = "不正解";
