@@ -156,6 +156,22 @@ button:disabled {
   color: #000;
 }
 
+.xPostBtn {
+  display: none;
+  margin-top: 22px;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.xPostBtn:hover {
+  opacity: 0.8;
+}
+
 .overlay {
   display: none;
   position: fixed;
@@ -202,6 +218,10 @@ button:disabled {
 
   .closeBtn {
     width: auto;
+  }
+
+  .xPostBtn {
+    width: 100%;
   }
 }
 </style>
@@ -253,6 +273,10 @@ button:disabled {
 
   <div id="replyText"></div>
 
+  <button id="xPostButton" class="xPostBtn" onclick="postToX()">
+    Xで報告する
+  </button>
+
 </div>
 
 <script>
@@ -269,6 +293,7 @@ function checkInput() {
 
 let replyMessage = "";
 let typingTimer = null;
+let canPostToX = false;
 
 function sendMail() {
   const input = answerBox.value.trim();
@@ -285,6 +310,7 @@ function sendMail() {
   ];
 
   const hintWords = [
+    "ヒント",
     "かたえき",
     "KATAEKI",
     "かた駅"
@@ -323,6 +349,8 @@ function sendMail() {
     notification.style.display = "block";
 
     if (isHint) {
+      canPostToX = false;
+
       replyMessage =
         "ふむ…その駅名は東京にはないな。<br><br>" +
         "部屋に大量にある「鏡」これをうまく使えないだろうか。<br><br>" +
@@ -330,6 +358,8 @@ function sendMail() {
         "―― N.F";
     }
     else if (correct) {
+      canPostToX = true;
+
       replyMessage =
         "春野鏡子失踪事件についての報告を受領した。<br><br>" +
         "なるほど…そこに向えばいいんだな。<br>" +
@@ -338,6 +368,8 @@ function sendMail() {
         "―― N.F";
     }
     else {
+      canPostToX = false;
+
       replyMessage =
         "春野鏡子失踪事件についての報告を受領した。<br><br>" +
         "ふむ…、それでは条件と一致しないようだ。<br><br>" +
@@ -352,11 +384,18 @@ function openReply() {
   const notification = document.getElementById("notification");
   const reply = document.getElementById("reply");
   const replyText = document.getElementById("replyText");
+  const xPostButton = document.getElementById("xPostButton");
 
   notification.style.display = "none";
   document.getElementById("overlay").style.display = "block";
   reply.style.display = "block";
   replyText.innerHTML = "";
+
+  if (canPostToX) {
+    xPostButton.style.display = "block";
+  } else {
+    xPostButton.style.display = "none";
+  }
 
   let i = 0;
 
@@ -387,6 +426,19 @@ function closeReply() {
   checkInput();
 
   answerBox.focus();
+}
+
+function postToX() {
+  const postText =
+    "春野鏡子失踪事件の報告を完了。\n" +
+    "N.Fに報告した\n" +
+    "#おりたたみ探偵事務所";
+
+  const url =
+    "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(postText);
+
+  window.open(url, "_blank");
 }
 </script>
 
