@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>報告メール（単語判定版 修正版）</title>
+<title>報告メール（GitHub Pages対応）</title>
 <style>
 body {margin:0;height:100vh;background:#e9eef3;font-family:Arial,sans-serif;display:flex;justify-content:center;align-items:center;padding:14px;}
 .app {width:100%; max-width:760px;}
@@ -33,7 +33,6 @@ button:disabled {background:#999;cursor:not-allowed;opacity:0.5;}
 </head>
 
 <body>
-
 <div class="app">
   <div class="mail" id="mailBox">
     <div class="header">「春野鏡子失踪事件」報告メール</div>
@@ -78,6 +77,7 @@ function sendMail() {
   const input = answerBox.value.trim();
   if (!input) return;
 
+  // 正誤判定
   const correct = answers.some(word => input.includes(word));
 
   const mailBox = document.getElementById("mailBox");
@@ -100,13 +100,13 @@ function sendMail() {
 
     if (correct) {
       canPostToX = true;
-      replyMessage = "春野鏡子失踪事件についての報告を受領した。<br><br>なるほど…そこに向えばいいんだな。<br>君は優秀な助手だ。<br><br>次回も頼むぞ。<br><br>―― N.F";
+      replyMessage = "春野鏡子失踪事件についての報告を受領した。<br><br>なるほど…そこに向けばいいんだな。<br>君は優秀な助手だ。<br><br>次回も頼むぞ。<br><br>―― N.F";
     } else {
       canPostToX = false;
       replyMessage = "ふむ…、それでは条件と一致しないようだ。<br><br>もう一度資料を確認してほしい。<br><br>―― N.F";
     }
 
-    // 正誤判定後に必ず返信ウィンドウを開く
+    // 正誤判定後に返信ウィンドウを開く
     openReply();
   }, 2800);
 }
@@ -147,7 +147,6 @@ function closeReply() {
   answerBox.focus();
 }
 
-// X投稿（公式Intentリンク）
 function postToX() {
   const originalTweetUrl = "https://twitter.com/youraccount/status/1234567890";
   const postText =
