@@ -113,15 +113,12 @@ button:disabled {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   width: 90%;
   max-width: 600px;
-
   background: white;
   color: #222;
   border-radius: 12px;
   padding: 24px;
-
   box-shadow: 0 20px 50px rgba(0,0,0,0.3);
   z-index: 1000;
 }
@@ -142,7 +139,6 @@ button:disabled {
   position: absolute;
   top: 12px;
   right: 16px;
-
   background: none;
   border: none;
   color: #666;
@@ -178,63 +174,29 @@ button:disabled {
   position: fixed;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
-
   background: rgba(0,0,0,0.45);
   z-index: 999;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes xButtonIn {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 600px) {
-  body {
-    align-items: flex-start;
-  }
-
-  .row {
-    padding: 12px 16px;
-  }
-
-  textarea {
-    height: 330px;
-    padding: 16px;
-    font-size: 15px;
-  }
-
-  button {
-    width: 100%;
-    padding: 13px;
-  }
-
-  .closeBtn {
-    width: auto;
-  }
-
-  .xPostBtn {
-    width: auto;
-  }
+  body { align-items: flex-start; }
+  .row { padding: 12px 16px; }
+  textarea { height: 330px; padding: 16px; font-size: 15px; }
+  button { width: 100%; padding: 13px; }
+  .closeBtn { width: auto; }
+  .xPostBtn { width: auto; }
 }
 </style>
 </head>
@@ -296,11 +258,7 @@ const answerBox = document.getElementById("answer");
 const sendButton = document.getElementById("sendButton");
 
 function checkInput() {
-  if (answerBox.value.trim() === "") {
-    sendButton.disabled = true;
-  } else {
-    sendButton.disabled = false;
-  }
+  sendButton.disabled = answerBox.value.trim() === "";
 }
 
 let replyMessage = "";
@@ -309,45 +267,24 @@ let canPostToX = false;
 
 function sendMail() {
   const input = answerBox.value.trim();
+  if (!input) return;
 
-  if (input === "") {
-    return;
-  }
+  const answers = ["みたえき","三田駅","MITAEKI","mitaeki"];
+  const hintWords = ["ヒント","かたえき","KATAEKI","かた駅"];
 
-  const answers = [
-    "みたえき",
-    "三田駅",
-    "MITAEKI",
-    "mitaeki"
-  ];
-
-  const hintWords = [
-    "ヒント",
-    "かたえき",
-    "KATAEKI",
-    "かた駅"
-  ];
-
-  const isHint = hintWords.some(word =>
-    input.includes(word)
-  );
-
-  const correct = answers.some(answer =>
-    input.includes(answer)
-  );
+  const isHint = hintWords.some(word => input.includes(word));
+  const correct = answers.some(answer => input.includes(answer));
 
   const mailBox = document.getElementById("mailBox");
   const button = document.getElementById("sendButton");
   const status = document.getElementById("status");
   const notification = document.getElementById("notification");
-  const reply = document.getElementById("reply");
 
   button.disabled = true;
   button.textContent = "送信中...";
   mailBox.classList.add("sending");
 
   notification.style.display = "none";
-  reply.style.display = "none";
   status.style.display = "block";
   status.textContent = "送信中...";
 
@@ -362,33 +299,27 @@ function sendMail() {
 
     if (isHint) {
       canPostToX = false;
-
       replyMessage =
         "ふむ…その駅名は東京にはないな。<br><br>" +
-        "部屋に大量にある「鏡」これをうまく使えないだろうか。<br><br>" +
-        "鏡文字の他に、文字を変換できそうな…なにか…<br><br>" +
+        "あともう一歩だと思うんだが…。<br><br>" +
+        "鏡文字に加えて、もう一ひねり必要そうだ。<br>この部屋に大量にある「鏡」を使えないだろうか。<br><br>" +
         "―― N.F";
-    }
-    else if (correct) {
+    } else if (correct) {
       canPostToX = true;
-
       replyMessage =
         "春野鏡子失踪事件についての報告を受領した。<br><br>" +
         "なるほど…そこに向えばいいんだな。<br>" +
         "君は優秀な助手だ。<br><br>" +
         "次回も頼むぞ。<br><br>" +
         "―― N.F";
-    }
-    else {
+    } else {
       canPostToX = false;
-
       replyMessage =
         "春野鏡子失踪事件についての報告を受領した。<br><br>" +
         "ふむ…、それでは条件と一致しないようだ。<br><br>" +
         "もう一度資料を確認してほしい。<br><br>" +
         "―― N.F";
     }
-
   }, 2800);
 }
 
@@ -402,27 +333,17 @@ function openReply() {
   document.getElementById("overlay").style.display = "block";
   reply.style.display = "block";
   replyText.innerHTML = "";
-
   xPostButton.style.display = "none";
 
   let i = 0;
-
-  if (typingTimer) {
-    clearInterval(typingTimer);
-  }
+  if (typingTimer) clearInterval(typingTimer);
 
   typingTimer = setInterval(() => {
     replyText.innerHTML = replyMessage.slice(0, i);
     i++;
-
     if (i > replyMessage.length) {
       clearInterval(typingTimer);
-
-      if (canPostToX) {
-        setTimeout(() => {
-          xPostButton.style.display = "block";
-        }, 400);
-      }
+      if (canPostToX) setTimeout(() => { xPostButton.style.display = "block"; }, 400);
     }
   }, 25);
 }
@@ -432,27 +353,26 @@ function closeReply() {
   document.getElementById("overlay").style.display = "none";
   document.getElementById("notification").style.display = "none";
 
-  const mailBox = document.getElementById("mailBox");
-  const xPostButton = document.getElementById("xPostButton");
-
-  mailBox.classList.remove("sending");
+  document.getElementById("mailBox").classList.remove("sending");
   sendButton.textContent = "送信";
-  xPostButton.style.display = "none";
-
+  document.getElementById("xPostButton").style.display = "none";
   checkInput();
-
   answerBox.focus();
 }
 
+// Xポスト（元の謎ツイートを引用）
 function postToX() {
+  const originalTweetUrl = "https://twitter.com/youraccount/status/1234567890"; // 元の謎ツイートURL
   const postText =
+    "【File001：おりたたみ探偵事務所　春野鏡子失踪事件】\n" +
     "春野鏡子失踪事件の報告を完了。\n" +
     "N.Fに報告した\n" +
-    "#おりたたみ探偵事務所";
+    "#おりたたみ探偵事務所 #謎解き";
 
   const url =
     "https://twitter.com/intent/tweet?text=" +
-    encodeURIComponent(postText);
+    encodeURIComponent(postText) +
+    "&url=" + encodeURIComponent(originalTweetUrl);
 
   window.open(url, "_blank");
 }
