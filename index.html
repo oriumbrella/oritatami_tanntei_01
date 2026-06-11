@@ -16,187 +16,38 @@ body {
   align-items: center;
   padding: 14px;
 }
+.app { width: 100%; max-width: 760px; }
+.mail { background: white; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); overflow: hidden; transition:0.6s; }
+.mail.sending { transform: translateY(-18px); opacity:0.45; }
+.header { background: #2f3542; color:white; padding:14px 18px; font-weight:bold; }
+.row { display:flex; padding:12px 18px; border-bottom:1px solid #ddd; }
+.label { width:80px; color:#777; }
+textarea { width:100%; height:300px; padding:22px; font-size:16px; line-height:1.7; border:none; resize:none; outline:none; font-family:inherit; background:white; box-sizing:border-box; }
+.footer { background:#f1f2f6; padding:14px 18px; text-align:right; }
+button { background:#494B9D; color:white; border:none; border-radius:6px; padding:10px 28px; font-size:15px; cursor:pointer; }
+button:disabled { background:#999; cursor:not-allowed; opacity:0.5; }
+.status { display:none; margin-top:16px; text-align:center; color:#555; }
+.notification { display:none; margin-top:20px; background:white; padding:16px 18px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.12); cursor:pointer; animation:fadeIn 0.5s; }
+.reply { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:90%; max-width:600px; background:white; color:#222; border-radius:12px; padding:24px; box-shadow:0 20px 50px rgba(0,0,0,0.3); z-index:1000; }
+.reply-title { font-weight:bold; margin-bottom:18px; line-height:1.6; border-bottom:1px solid #ddd; padding-bottom:12px; }
+#replyText { line-height:1.8; }
+.closeBtn { position:absolute; top:12px; right:16px; background:none; border:none; color:#666; font-size:24px; cursor:pointer; padding:0; width:auto; }
+.closeBtn:hover { color:#000; }
+.xPostBtn { display:none; margin:26px auto 0 auto; background:#000; color:white; border:none; border-radius:8px; padding:10px 22px; font-size:14px; cursor:pointer; animation:xButtonIn 0.6s ease; }
+.xPostBtn:hover { opacity:0.8; }
+.overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.45); z-index:999; }
+.footer-note { margin-top:12px; font-size:12px; color:#555; text-align:center; }
+.footer-note span { float:right; }
+@keyframes fadeIn { from {opacity:0; transform:translateY(12px);} to {opacity:1; transform:translateY(0);} }
+@keyframes xButtonIn { from {opacity:0; transform:translateY(12px);} to {opacity:1; transform:translateY(0);} }
 
-.app {
-  width: 100%;
-  max-width: 760px;
-}
-
-.mail {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  overflow: hidden;
-  transition: 0.6s;
-}
-
-.mail.sending {
-  transform: translateY(-18px);
-  opacity: 0.45;
-}
-
-.header {
-  background: #2f3542;
-  color: white;
-  padding: 14px 18px;
-  font-weight: bold;
-}
-
-.row {
-  display: flex;
-  padding: 12px 18px;
-  border-bottom: 1px solid #ddd;
-}
-
-.label {
-  width: 80px;
-  color: #777;
-}
-
-textarea {
-  width: 100%;
-  height: 300px;
-  padding: 22px;
-  font-size: 16px;
-  line-height: 1.7;
-  border: none;
-  resize: none;
-  outline: none;
-  font-family: inherit;
-  background: white;
-  box-sizing: border-box;
-}
-
-.footer {
-  background: #f1f2f6;
-  padding: 14px 18px;
-  text-align: right;
-}
-
-button {
-  background: #494B9D;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 28px;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-button:disabled {
-  background: #999;
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.status {
-  display: none;
-  margin-top: 16px;
-  text-align: center;
-  color: #555;
-}
-
-.notification {
-  display: none;
-  margin-top: 20px;
-  background: white;
-  padding: 16px 18px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  cursor: pointer;
-  animation: fadeIn 0.5s;
-}
-
-.reply {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 600px;
-  background: white;
-  color: #222;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-  z-index: 1000;
-}
-
-.reply-title {
-  font-weight: bold;
-  margin-bottom: 18px;
-  line-height: 1.6;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 12px;
-}
-
-#replyText {
-  line-height: 1.8;
-}
-
-.closeBtn {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 0;
-  width: auto;
-}
-
-.closeBtn:hover {
-  color: #000;
-}
-
-.xPostBtn {
-  display: none;
-  margin: 26px auto 0 auto;
-  background: #000;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 22px;
-  font-size: 14px;
-  cursor: pointer;
-  animation: xButtonIn 0.6s ease;
-}
-
-.xPostBtn:hover {
-  opacity: 0.8;
-}
-
-.overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.45);
-  z-index: 999;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes xButtonIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 600px) {
-  body { align-items: flex-start; }
-  .row { padding: 12px 16px; }
-  textarea { height: 330px; padding: 16px; font-size: 15px; }
-  button { width: 100%; padding: 13px; }
-  .closeBtn { width: auto; }
-  .xPostBtn { width: auto; }
+@media (max-width:600px) {
+  body { align-items:flex-start; }
+  .row { padding:12px 16px; }
+  textarea { height:330px; padding:16px; font-size:15px; }
+  button { width:100%; padding:13px; }
+  .closeBtn { width:auto; }
+  .xPostBtn { width:auto; }
 }
 </style>
 </head>
@@ -222,6 +73,10 @@ button:disabled {
 
     <div class="footer">
       <button id="sendButton" onclick="sendMail()" disabled>送信</button>
+      <div class="footer-note">
+        本作品はフィクションです。実際の地名・団体・人物と一切かかわりがございません。
+        <span id="xAccount">@username</span>
+      </div>
     </div>
   </div>
 
@@ -237,20 +92,13 @@ button:disabled {
 <div id="overlay" class="overlay" onclick="closeReply()"></div>
 
 <div id="reply" class="reply">
-
   <button class="closeBtn" onclick="closeReply()">×</button>
-
   <div class="reply-title">
     From: N.F@koreha.fiction.da<br>
     Subject: RE: 「春野鏡子失踪事件」報告メール
   </div>
-
   <div id="replyText"></div>
-
-  <button id="xPostButton" class="xPostBtn" onclick="postToX()">
-    Xで報告する
-  </button>
-
+  <button id="xPostButton" class="xPostBtn" onclick="postToX()">Xで報告する</button>
 </div>
 
 <script>
@@ -265,12 +113,12 @@ let replyMessage = "";
 let typingTimer = null;
 let canPostToX = false;
 
+const answers = ["みたえき","三田駅","MITAEKI","mitaeki"];
+const hintWords = ["ヒント","かたえき","KATAEKI","かた駅"];
+
 function sendMail() {
   const input = answerBox.value.trim();
   if (!input) return;
-
-  const answers = ["みたえき","三田駅","MITAEKI","mitaeki"];
-  const hintWords = ["ヒント","かたえき","KATAEKI","かた駅"];
 
   const isHint = hintWords.some(word => input.includes(word));
   const correct = answers.some(answer => input.includes(answer));
@@ -352,13 +200,13 @@ function closeReply() {
   document.getElementById("reply").style.display = "none";
   document.getElementById("overlay").style.display = "none";
   document.getElementById("notification").style.display = "none";
-
   document.getElementById("mailBox").classList.remove("sending");
   sendButton.textContent = "送信";
   document.getElementById("xPostButton").style.display = "none";
   checkInput();
   answerBox.focus();
 }
+
 // Xポスト（引用なし）
 function postToX() {
   const postText =
@@ -368,8 +216,7 @@ function postToX() {
     "#おりたたみ探偵事務所 #謎解き";
 
   const url =
-    "https://twitter.com/intent/tweet?text=" +
-    encodeURIComponent(postText);
+    "https://twitter.com/intent/tweet?text=" + encodeURIComponent(postText);
 
   window.open(url, "_blank");
 }
