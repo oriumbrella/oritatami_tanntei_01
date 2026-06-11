@@ -359,10 +359,8 @@ function closeReply() {
   checkInput();
   answerBox.focus();
 }
-
-// Xポスト（元の謎ツイートを引用）
+// Xポスト（引用なし）
 function postToX() {
-  const originalTweetUrl = "https://twitter.com/youraccount/status/1234567890"; // 元の謎ツイートURL
   const postText =
     "【File001：おりたたみ探偵事務所　春野鏡子失踪事件】\n" +
     "春野鏡子失踪事件の報告を完了。\n" +
@@ -371,8 +369,7 @@ function postToX() {
 
   const url =
     "https://twitter.com/intent/tweet?text=" +
-    encodeURIComponent(postText) +
-    "&url=" + encodeURIComponent(originalTweetUrl);
+    encodeURIComponent(postText);
 
   window.open(url, "_blank");
 }
